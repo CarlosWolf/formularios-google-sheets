@@ -15,10 +15,10 @@
     </form>
 
     <script>
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyVZdXh9sU5qt7yiHD4FwIYJ7mXaiWx2Y6iexN7q18FS9Qoe_zSCKjvGKCkgNnQzI-bkQ/exec/exec";
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1McqY2hkuPYisOlNLMX0HJjDvAG_uzqy-oHG03rZHFHusAR_Ex1fHPT-n_AUVLEIOiw/exec";
 
         document.getElementById("formulario").addEventListener("submit", async function (event) {
-            event.preventDefault();
+            event.preventDefault(); // Evitar el envío predeterminado del formulario
 
             const valor = document.getElementById("valor").value;
 
@@ -28,21 +28,17 @@
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    mode: "no-cors", // Desactiva la verificación de CORS
                     body: JSON.stringify({ valor: valor }),
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    alert("Respuesta del servidor: " + JSON.stringify(data));
-                } else {
-                    alert("Error en la solicitud: " + response.status);
-                }
+                // No puedes acceder al contenido de la respuesta cuando usas "no-cors"
+                alert("Dato enviado correctamente.");
             } catch (error) {
                 console.error("Error al enviar el dato:", error);
-                alert("Ocurrió un error.");
+                alert("Ocurrió un error al enviar el dato.");
             }
         });
-
     </script>
 </body>
 
