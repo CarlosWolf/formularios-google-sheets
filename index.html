@@ -4,23 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviar Dato a Apps Script</title>
+    <title>Formulario</title>
 </head>
 
 <body>
-    <h1>Formulario para enviar datos</h1>
-    <form id="dataForm">
-        <label for="valor">Valor:</label>
+    <form id="formulario">
+        <label for="valor">Introduce un valor v2 : </label>
         <input type="text" id="valor" name="valor" required>
         <button type="submit">Enviar</button>
     </form>
 
     <script>
-        // URL de tu aplicación web de Apps Script
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1McqY2hkuPYisOlNLMX0HJjDvAG_uzqy-oHG03rZHFHusAR_Ex1fHPT-n_AUVLEIOiw/exec"; // Reemplaza con la URL de tu Apps Script
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1McqY2hkuPYisOlNLMX0HJjDvAG_uzqy-oHG03rZHFHusAR_Ex1fHPT-n_AUVLEIOiw/exec";
 
-        document.getElementById("dataForm").addEventListener("submit", async function (event) {
-            event.preventDefault();
+        document.getElementById("formulario").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Evitar el envío predeterminado del formulario
 
             const valor = document.getElementById("valor").value;
 
@@ -30,19 +28,15 @@
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    mode: "no-cors", // Desactiva la verificación de CORS
                     body: JSON.stringify({ valor: valor }),
                 });
 
-                const result = await response.json();
-
-                if (result.success) {
-                    alert("Dato enviado correctamente: " + valor);
-                } else {
-                    alert("Error al enviar dato: " + result.error);
-                }
+                // No puedes acceder al contenido de la respuesta cuando usas "no-cors"
+                alert("Dato enviado correctamente.");
             } catch (error) {
                 console.error("Error al enviar el dato:", error);
-                alert("Hubo un error al conectar con Apps Script.");
+                alert("Ocurrió un error al enviar el dato.");
             }
         });
     </script>
